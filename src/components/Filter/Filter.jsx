@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import '../Filter/Filter.module.css';
 
@@ -14,6 +15,6 @@ export const Filter = ({ value, onChange }) => (
 );
 
 Filter.propTypes = {
-  filter: PropTypes.string.isRequired,
-  changeFilterInput: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  changeFilterInput: PropTypes.func,
 };

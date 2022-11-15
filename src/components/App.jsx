@@ -1,10 +1,10 @@
-import { useState,useEffect  } from 'react';
+import { useState, useEffect  } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-import { shortid } from 'shortid';
+import  shortid  from 'shortid';
 import './App.module.css';
-import initialContacts from '../components/contacts.json';
+import initialContacts from './contacts.json';
 
 
 const INITIAL_STATE = {
@@ -24,12 +24,13 @@ export const App = () => {
     }
     const newContact = {
       id: shortid.generate(),
-      name, number,
+      name,
+      number,
     };
     setContacts([newContact, ...contacts]);
   };
 
-  const removeContacts = id => {
+  const removeContact = id => {
     setContacts(contacts.filter(contact => contact.id !== id));
   };
 
@@ -39,7 +40,8 @@ export const App = () => {
 
   const normalizedFilter = filter.toLowerCase();
   const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizedFilter));
+    contact.name.toLowerCase().includes(normalizedFilter)
+  );
   
   useEffect(() => {
     const localContacts = localStorage.getItem('contacts');
@@ -53,15 +55,15 @@ export const App = () => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
-
-
   return (
     <section>
       <h1>Phonebook</h1>
       <ContactForm handleSubmit={addContact} />
+
       <h2>Contacts</h2>
       <Filter value={filter} onChange={onChangeFilter} />
-      <ContactList contacts={filteredContacts()} deleteContact={removeContacts} />
+      <ContactList contacts={filteredContacts} onDelete={removeContact} />
     </section>
   );
 };
+
